@@ -3,9 +3,14 @@
 
 clear all
 
-frequency = 'beta'; % or gamma
+% add functions to path
 
-path_base     = 'E:\DynCogPD'; % path of the main folder
+addpath(genpath('C:\GitHub\dynCogPD\Code'));
+
+frequency = 'beta'; % or gamma
+CATfile = dir(['F:\WJD\Simon Dynamic FC\Results\FCmat\CAT\', frequency, '\', '*_incong_wplv1225.mat']);
+
+path_base     = 'F:\DynCogPD'; % path of the main folder
 
 % Define the controls and patients indices
 
@@ -16,8 +21,8 @@ nsub = size(HC, 2) + size(PD, 2);
 
 NCs = 5;
 
-path_states = 'F:\ICA_results'; % path of the ICA results
-path_conn = ['F:\EEGCOG_data_4_DynEEG_FCmat\CAT\', frequency];
+path_states = 'F:\WJD\Simon Dynamic FC\Results\ICA\HC_PD_CAT'; % path of the ICA results
+path_conn = ['F:\WJD\Simon Dynamic FC\Results\FCmat\CAT\', frequency];
 %
 %
 % % HC
@@ -74,7 +79,7 @@ end
 
 % 3.1. Define minimum duration for significance.
 
-ncycles = 1;
+ncycles = 3;
 d_cy = ncycles*(round(1000/band_interval(1)));
 
 
@@ -141,4 +146,89 @@ cfg_ms.deltat    = results.time(end)-results.time(end-1); % difference time betw
 
 microparams_HC = extract_microstates(cfg_ms,corr_tw_HC,ind_tw_HC,cmat_allHC,size(HC, 2));
 microparams_PD = extract_microstates(cfg_ms,corr_tw_PD,ind_tw_PD,cmat_allPD,size(PD, 2));
+
+
+
+% 5.3. Extract parameters
+
+n_net = size(microparams_HC.fraction_covtime, 2);
+
+frac_covtime_HC = zeros(10, n_net);
+
+for neti = 1:n_net
+    frac_covtime_HC(:, neti) = microparams_HC.fraction_covtime{1, neti};
+end
+
+frac_covtime_PD = zeros(21, n_net);
+
+for neti = 1:n_net
+    frac_covtime_PD(:, neti) = microparams_PD.fraction_covtime{1, neti};
+end
+
+
+%%
+
+freq_occurence_HC = zeros(10, n_net);
+
+for neti = 1:n_net
+    freq_occurence_HC(:, neti) = microparams_HC.freq_occurence{1, neti};
+end
+
+freq_occurence_PD = zeros(21, n_net);
+
+for neti = 1:n_net
+    freq_occurence_PD(:, neti) = microparams_PD.freq_occurence{1, neti};
+end
+
+%%
+
+avg_lifespan_HC = zeros(10, n_net);
+
+for neti = 1:n_net
+    avg_lifespan_HC(:, neti) = microparams_HC.avg_lifespan{1, neti};
+end
+
+avg_lifespan_PD = zeros(21, n_net);
+
+for neti = 1:n_net
+    avg_lifespan_PD(:, neti) = microparams_PD.avg_lifespan{1, neti};
+end%%
+
+%%
+GEV_HC = zeros(10, n_net);
+
+for neti = 1:n_net
+    GEV_HC(:, neti) = microparams_HC.GEV{1, neti};
+end
+
+GEV_PD = zeros(21, n_net);
+
+for neti = 1:n_net
+    GEV_PD(:, neti) = microparams_PD.GEV{1, neti};
+end
+
+%%
+TR_HC = zeros(n_net, n_net, 10);
+
+for subi = 1:10
+    TR_HC(:,:,subi) = microparams_HC.TR{1, subi};
+end
+
+TR_PD = zeros(n_net, n_net, 21);
+
+for subi = 1:21
+    TR_PD(:,:,subi) = microparams_PD.TR{1, subi};
+end
+%%
+TRsym0_HC = zeros(n_net, n_net, 10);
+
+for subi = 1:10
+    TRsym0_HC(:,:,subi) = microparams_HC.TRsym0{1, subi};
+end
+
+TRsym0_PD = zeros(n_net, n_net, 21);
+
+for subi = 1:21
+    TRsym0_PD(:,:,subi) = microparams_PD.TRsym0{1, subi};
+end
 
