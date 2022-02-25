@@ -128,17 +128,17 @@ cfg_algo.states_maps_all = states_maps_all;
 % 5.1. Configuration for Microstats extraction
 
 cfg_ms           = [];
-cfg_ms.cHC       = cCAT; % number of significant kept states in HC grp
+cfg_ms.cHC       = 5; % number of significant kept states in HC grp
 cfg_ms.cPD       = 0; % number of significant kept states in PD grp
 cfg_ms.cCAT       = cCAT; % number of significant kept states in PD grp
 
 cfg_ms.ind_0s    = ind_0s; % onset time
 cfg_ms.totaltime = results.time(end); % total time duration after onset (in sec)
-cfg_ms.deltat    = results.time(end)-results.time(end-1); % difference time between two time windows (in sec)
+cfg_ms.deltat    = resultsC.time(end)-results.time(end-1); % difference time between two time windows (in sec)
 
 
 % 5.2. Extract Microstats for HC + PD
 
-microparams_HC = extract_microstates(cfg_ms,corr_tw_HC,ind_tw_HC,cmat_allHC,size(HC, 2));
-microparams_PD = extract_microstates(cfg_ms,corr_tw_PD,ind_tw_PD,cmat_allPD,size(PD, 2));
+microparams_HC = extract_microstates(cfg_ms,corr_tw_HC,ind_tw_HC,cmat_allHC,n_controls);
+microparams_PD = extract_microstates(cfg_ms,corr_tw_PD,ind_tw_PD,cmat_allPD,n_parks);
 
