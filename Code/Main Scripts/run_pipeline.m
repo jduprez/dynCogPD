@@ -97,6 +97,10 @@ cfg_inparam=rmfield(cfg_inparam,'subvol');
 
 %% 5. COMPUTE ICA 
 
+% 5.0. Determine optimal number of ICs to look for usign DIFFIT
+
+
+
 % 5.1. Configuration for states (ICA algo) (By User***)
 
 NCs                 = 5; % to specify by the user

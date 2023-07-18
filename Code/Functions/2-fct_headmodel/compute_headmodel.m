@@ -24,7 +24,7 @@ setenv('PATH', [inparam.path_base '\TOOLBOXES\OpenMEEG\bin']); %add path for ope
 % 4. Prepare mesh using 'headshape' method
 cfg=[];
 cfg.method='headshape';
-brain=ft_read_headshape([inparam.path_base '\Inputs\' inparam.mri_template '\tess_innerskull_' inparam.mri_template '.mat']); %load the innerskull template used in Brainstorm 
+brain = ft_read_headshape([path_base '\input4code\' mri_template '\tess_innerskull_' mri_template '.mat']); % load the innerskull template used in Brainstorm 
 brain_mm=ft_convert_units(brain,'mm');
 cfg.headshape=brain_mm;
 cfg.numvertices = [3000];
@@ -32,7 +32,7 @@ bnd(1)=ft_prepare_mesh(cfg,segmentedmri);
 
 cfg=[];
 cfg.method='headshape';
-skull=ft_read_headshape([inparam.path_base '\Inputs\' inparam.mri_template '\tess_outerskull_' inparam.mri_template '.mat']); %load the outerskull template used in Brainstorm 
+skull=ft_read_headshape([inparam.path_base '\input4code\' inparam.mri_template '\tess_outerskull_' inparam.mri_template '.mat']); %load the outerskull template used in Brainstorm 
 skull_mm=ft_convert_units(skull,'mm');
 cfg.headshape=skull_mm;
 cfg.numvertices = [3000];
@@ -40,7 +40,7 @@ bnd(2)=ft_prepare_mesh(cfg,segmentedmri);
 
 cfg=[];
 cfg.method='headshape';
-head=ft_read_headshape([inparam.path_base '\Inputs\' inparam.mri_template '\tess_head_' inparam.mri_template '.mat']); %load the head template used in Brainstorm 
+head=ft_read_headshape([inparam.path_base '\input4code\' inparam.mri_template '\tess_head_' inparam.mri_template '.mat']); %load the head template used in Brainstorm 
 head_mm=ft_convert_units(head,'mm');
 cfg.headshape=head_mm;
 cfg.numvertices = [3000];
